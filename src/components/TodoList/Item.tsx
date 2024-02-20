@@ -11,7 +11,7 @@ interface Props {
 
 function Item({ value, tabIndex, onChange, onAdd, onDelete }: Props) {
   const [isEditing, setIsEditing] = useState(false); // when user is adding new item
-  const [isActive, setIsActive] = useState(false); // for item hover
+  const [isActive, setIsActive] = useState(false); // for item hover and focus
 
   return (
     <div
@@ -43,7 +43,7 @@ function Item({ value, tabIndex, onChange, onAdd, onDelete }: Props) {
           // For add new item
           onFocus={() => !!onAdd && setIsEditing(true)}
           onBlur={() => !!onAdd && setIsEditing(false)}
-          // For update item
+          onTouchStart={() => setIsActive(true)}
         />
         {!onAdd && isActive && (
           <button

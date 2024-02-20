@@ -1,7 +1,6 @@
 #root {
-  @apply max-w-screen-md;
+  @apply max-w-screen-md p-6 sm:p-12;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
   width: 100%;
 }
@@ -31,10 +30,6 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-.card {
-  padding: 2em;
 }
 
 .read-the-docs {
