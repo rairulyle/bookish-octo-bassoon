@@ -14,33 +14,21 @@ function Item({ value, onChange, onAdd, onDelete }: Props) {
   const [isActive, setIsActive] = useState(false); // for item hover and focus
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsActive(true)}
-      onMouseLeave={() => setIsActive(false)}
-    >
+    <div className="relative" onMouseEnter={() => setIsActive(true)} onMouseLeave={() => setIsActive(false)}>
       <div className="flex gap-x-2 items-center">
         {!onAdd && (
           <input
             tabIndex={-1}
-            aria-label={
-              value.completed
-                ? `Mark ${value.task} as uncompleted`
-                : `Mark ${value.task} as completed`
-            }
+            aria-label={value.completed ? `Mark ${value.task} as uncompleted` : `Mark ${value.task} as completed`}
             type="checkbox"
             checked={value.completed}
-            onChange={(e) =>
-              onChange?.({ ...value, completed: e.target.checked })
-            }
+            onChange={(e) => onChange?.({ ...value, completed: e.target.checked })}
           />
         )}
         <input
           placeholder="Take a note..."
           type="text"
-          className={`p-2 rounded-md focus:outline-none bg-transparent w-full ${
-            value.completed && 'line-through'
-          }`}
+          className={`p-2 rounded-md focus:outline-none bg-transparent w-full ${value.completed && 'line-through'}`}
           value={value.task}
           onKeyDown={(e) => e.key === 'Enter' && value.task && onAdd?.(value)}
           onChange={(e) => onChange?.({ ...value, task: e.target.value })}
@@ -54,7 +42,7 @@ function Item({ value, onChange, onAdd, onDelete }: Props) {
             type="button"
             className="flex items-center justify-center text-xs dark:border-white dark:border-opacity-50 border-black p-1 rounded-full border-opacity-20 h-6 w-6 focus:outline-none"
             onClick={() => onDelete?.(value)}
-            title={`Remove ${value.task}`}
+            aria-label={`Remove ${value.task}`}
           >
             <TrashCan />
           </button>
