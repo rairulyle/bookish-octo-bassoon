@@ -1,14 +1,14 @@
-import { ReactNode } from 'react'
-import sesimi from '/sesimi.svg'
+import { ReactNode } from 'react';
+import sesimi from '/sesimi.svg';
 
 type LayoutProps = {
-  children: ReactNode
-  complementary: ReactNode
-}
+  children: ReactNode;
+  complementary: ReactNode;
+};
 
 const Layout = ({ children, complementary }: LayoutProps) => {
   return (
-    <div className={`grid items-center`}>
+    <div className="grid items-center">
       <main>
         <div>
           <img
@@ -17,14 +17,14 @@ const Layout = ({ children, complementary }: LayoutProps) => {
             alt="Vite logo"
             width="140"
           />
+          <h4 className="-mt-8">Daily Todo</h4>
         </div>
-        <h1>todo…</h1>
-        <div className="card">{children}</div>
+        <div className="card text-left">{children}</div>
       </main>
 
       <aside>{complementary}</aside>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
