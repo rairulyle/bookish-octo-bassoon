@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/react-interview"
+        "outputPath": "dist"
       },
       "configurations": {
         "development": {
