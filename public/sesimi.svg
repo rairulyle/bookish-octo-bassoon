@@ -16,16 +16,15 @@
     </mask>
   </defs>
   <style>
-    .sesimi-svg {
-      fill: #d2ff3d;
-    }
-
     @media (prefers-color-scheme: light) {
       .sesimi-svg {
         fill: black;
       }
     }
-    
+
+    .sesimi-svg {
+      fill: #d2ff3d;
+    }
   </style>
-  <rect x="0" y="0" width="100%" height="100%" class="sesimi-svg" mask="url(#mask)"></rect>
+  <rect x="0" y="0" width="100%" height="100%" class="sesimi-svg" fill="#d2ff3d" mask="url(#mask)"></rect>
 </svg>
