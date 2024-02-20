@@ -1,19 +1,27 @@
-import './app.css'
-import TodoList from '../TodoList/TodoList'
-import Layout from '../Layout'
+import { TodoList } from '@components/TodoList';
+
+import Layout from '../Layout';
+import './app.css';
 
 function App() {
   return (
     <Layout
       complementary={
-        <p>
-          You have <strong>×</strong> total tasks.
-        </p>
+        <footer>
+          © {new Date().getFullYear()}{' '}
+          <a
+            href="https://rairulyle.me/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            rairulyle.me
+          </a>
+        </footer>
       }
     >
       <TodoList />
     </Layout>
-  )
+  );
 }
 
-export default App
+export default App;
