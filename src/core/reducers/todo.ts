@@ -11,7 +11,7 @@ const sortItemsByUncheckedFirst = (items: TodoItem[]) => {
   return items.sort((a, b) => Number(a.completed) - Number(b.completed));
 };
 
-interface TodoAction {
+export interface TodoAction {
   type: TODO_ACTION_TYPE;
   payload: TodoItem[];
 }

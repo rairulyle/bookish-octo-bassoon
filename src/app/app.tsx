@@ -1,5 +1,5 @@
 import { TodoList } from '@components/TodoList';
-import { ToDoStatus } from '@core/model/status';
+
 import Layout from '../Layout';
 import './app.css';
 

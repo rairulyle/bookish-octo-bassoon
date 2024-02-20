@@ -1,8 +1,9 @@
 import { TodoItem } from '@core/model/todo';
 import { TODO_ACTION_TYPE, todoReducer } from '@core/reducers/todo';
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 import Item from './Item';
+import List from './List';
 
 const initialState: TodoItem = {
   id: +new Date(),
@@ -14,7 +15,6 @@ const TodoList = () => {
   const [firstRender, setFirstRender] = useState(true);
   const [todoList, dispatch] = useReducer(todoReducer, []);
   const [newTask, setNewTask] = useState<TodoItem>(initialState);
-  const numberOfTasksLeft = todoList.filter((item) => !item.completed).length;
 
   // Load from local storage
   useEffect(() => {
@@ -47,48 +47,7 @@ const TodoList = () => {
         }}
         onChange={setNewTask}
       />
-      {todoList.length ? (
-        <>
-          <ul className="max-h-[50vh] overflow-y-auto w-full p-2">
-            {todoList.map((item, i) => (
-              <li key={item.id}>
-                <Item
-                  value={item}
-                  tabIndex={i + 1}
-                  onChange={(value) =>
-                    dispatch({
-                      type: TODO_ACTION_TYPE.UPDATE,
-                      payload: [value],
-                    })
-                  }
-                  onDelete={(value) =>
-                    dispatch({
-                      type: TODO_ACTION_TYPE.DELETE,
-                      payload: [value],
-                    })
-                  }
-                />
-              </li>
-            ))}
-          </ul>
-          <div className="text-center">
-            <span className="text-sm opacity-50">
-              {numberOfTasksLeft ? (
-                <>
-                  You have {numberOfTasksLeft} task
-                  {numberOfTasksLeft > 1 ? 's' : ''} left.
-                </>
-              ) : (
-                <>Congratulations! You have completed all of your tasks.</>
-              )}
-            </span>
-          </div>
-        </>
-      ) : (
-        <div className="text-center">
-          <span className="text-sm opacity-50">No tasks at the moment</span>
-        </div>
-      )}
+      <List todoList={todoList} dispatch={dispatch} />
     </div>
   );
 };
