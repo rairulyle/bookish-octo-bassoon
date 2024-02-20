@@ -1,27 +1,27 @@
-import { useState } from 'react'
-import Layout from '../Layout'
-import './app.css'
-import { TodoList } from '@components/TodoList'
-import { ToDoStatus } from '@core/model/status'
+import { TodoList } from '@components/TodoList';
+import { ToDoStatus } from '@core/model/status';
+import Layout from '../Layout';
+import './app.css';
 
 function App() {
-  const [numOfTask, setNumOfTask] = useState(0)
-
   return (
     <Layout
       complementary={
-        <p>
-          You have <strong>{numOfTask}</strong> total tasks.
-        </p>
+        <footer>
+          © {new Date().getFullYear()}{' '}
+          <a
+            href="https://rairulyle.me/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            rairulyle.me
+          </a>
+        </footer>
       }
     >
-      <TodoList
-        status={ToDoStatus.ERROR}
-        errorMessage="Name of the task should be supplied"
-        onTaskChange={(e) => setNumOfTask(e.length)}
-      />
+      <TodoList />
     </Layout>
-  )
+  );
 }
 
-export default App
+export default App;

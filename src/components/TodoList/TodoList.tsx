@@ -1,7 +1,6 @@
-import { ToDoStatus } from '@core/model/status';
 import { TodoItem } from '@core/model/todo';
 import { TODO_ACTION_TYPE, todoReducer } from '@core/reducers/todo';
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 
 import Item from './Item';
 
@@ -11,17 +10,31 @@ const initialState: TodoItem = {
   completed: false,
 };
 
-type ConditionalProps =
-  | { status: ToDoStatus.ERROR; errorMessage: string }
-  | { status: ToDoStatus.SUCCESS; successMessage: string };
-
-type Props = {
-  onTaskChange: (items: string[]) => void;
-} & ConditionalProps;
-
-const TodoList = (props: Props) => {
+const TodoList = () => {
+  const [firstRender, setFirstRender] = useState(true);
   const [todoList, dispatch] = useReducer(todoReducer, []);
   const [newTask, setNewTask] = useState<TodoItem>(initialState);
+  const numberOfTasksLeft = todoList.filter((item) => !item.completed).length;
+
+  // Load from local storage
+  useEffect(() => {
+    const localTodoList = localStorage.getItem('todo-list');
+    if (localTodoList) {
+      dispatch({
+        type: TODO_ACTION_TYPE.LOAD,
+        payload: JSON.parse(localTodoList),
+      });
+    }
+  }, []);
+
+  // Save to local storage
+  useEffect(() => {
+    if (!firstRender) {
+      localStorage.setItem('todo-list', JSON.stringify(todoList));
+    } else {
+      setFirstRender(false);
+    }
+  }, [todoList, firstRender]);
 
   return (
     <div className="p-4 border border-white border-opacity-20 rounded-md">
@@ -34,28 +47,48 @@ const TodoList = (props: Props) => {
         }}
         onChange={setNewTask}
       />
-      <ul className="max-h-[50vh] overflow-y-auto w-full p-2">
-        {todoList.length ? (
-          todoList.map((item, i) => (
-            <li key={item.id}>
-              <Item
-                value={item}
-                tabIndex={i + 1}
-                onChange={(value) =>
-                  dispatch({ type: TODO_ACTION_TYPE.UPDATE, payload: [value] })
-                }
-                onDelete={(value) =>
-                  dispatch({ type: TODO_ACTION_TYPE.DELETE, payload: [value] })
-                }
-              />
-            </li>
-          ))
-        ) : (
-          <li className="text-center">
-            <span className="text-sm opacity-50">No tasks at the moment</span>
-          </li>
-        )}
-      </ul>
+      {todoList.length ? (
+        <>
+          <ul className="max-h-[50vh] overflow-y-auto w-full p-2">
+            {todoList.map((item, i) => (
+              <li key={item.id}>
+                <Item
+                  value={item}
+                  tabIndex={i + 1}
+                  onChange={(value) =>
+                    dispatch({
+                      type: TODO_ACTION_TYPE.UPDATE,
+                      payload: [value],
+                    })
+                  }
+                  onDelete={(value) =>
+                    dispatch({
+                      type: TODO_ACTION_TYPE.DELETE,
+                      payload: [value],
+                    })
+                  }
+                />
+              </li>
+            ))}
+          </ul>
+          <div className="text-center">
+            <span className="text-sm opacity-50">
+              {numberOfTasksLeft ? (
+                <>
+                  You have {numberOfTasksLeft} task
+                  {numberOfTasksLeft > 1 ? 's' : ''} left.
+                </>
+              ) : (
+                <>Congratulations! You have completed all of your tasks.</>
+              )}
+            </span>
+          </div>
+        </>
+      ) : (
+        <div className="text-center">
+          <span className="text-sm opacity-50">No tasks at the moment</span>
+        </div>
+      )}
     </div>
   );
 };
