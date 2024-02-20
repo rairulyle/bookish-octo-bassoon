@@ -26,7 +26,7 @@ export default defineConfig({
 
   build: {
     minify: true,
-    outDir: './dist/react-interview',
+    outDir: './dist',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
