@@ -1,3 +1,4 @@
+import TrashCan from '@components/Icons/TrashCan';
 import { TodoItem } from '@core/model/todo';
 import { useState } from 'react';
 
@@ -48,13 +49,15 @@ function Item({ value, onChange, onAdd, onDelete }: Props) {
           onBlur={() => !!onAdd && setIsEditing(false)}
           onTouchStart={() => setIsActive(true)}
         />
+
         {!onAdd && isActive && (
           <button
             type="button"
             className="flex items-center justify-center text-xs  border-white border p-1 rounded-full border-opacity-20 h-6 w-6 focus:outline-none"
             onClick={() => onDelete?.(value)}
+            title={`Remove ${value.task}`}
           >
-            x
+            <TrashCan />
           </button>
         )}
       </div>
