@@ -49,11 +49,10 @@ function Item({ value, onChange, onAdd, onDelete }: Props) {
           onBlur={() => !!onAdd && setIsEditing(false)}
           onTouchStart={() => setIsActive(true)}
         />
-
         {!onAdd && isActive && (
           <button
             type="button"
-            className="flex items-center justify-center text-xs  border-white border p-1 rounded-full border-opacity-20 h-6 w-6 focus:outline-none"
+            className="flex items-center justify-center text-xs dark:border-white dark:border-opacity-50 border-black p-1 rounded-full border-opacity-20 h-6 w-6 focus:outline-none"
             onClick={() => onDelete?.(value)}
             title={`Remove ${value.task}`}
           >
@@ -63,7 +62,7 @@ function Item({ value, onChange, onAdd, onDelete }: Props) {
       </div>
 
       {!!onAdd && isEditing && (
-        <span className="absolute top-1/2 right-0 transform -translate-y-1/2 text-xs  border-white border p-1 rounded-md border-opacity-20">
+        <span className="absolute top-1/2 right-0 transform -translate-y-1/2 text-xs dark:border-opacity-50 dark:border-white border p-1 rounded-md border-opacity-20">
           Enter
         </span>
       )}

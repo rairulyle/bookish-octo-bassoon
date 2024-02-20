@@ -37,7 +37,7 @@ const TodoList = () => {
   }, [todoList, firstRender]);
 
   return (
-    <div className="p-4 border border-white border-opacity-20 rounded-md">
+    <div className="p-4 border dark:border-white dark:border-opacity-50 rounded-md">
       <Item
         value={newTask}
         onAdd={(value) => {
