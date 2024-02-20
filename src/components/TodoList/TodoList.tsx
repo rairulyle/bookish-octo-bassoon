@@ -40,7 +40,6 @@ const TodoList = () => {
     <div className="p-4 border border-white border-opacity-20 rounded-md">
       <Item
         value={newTask}
-        tabIndex={1}
         onAdd={(value) => {
           dispatch({ type: TODO_ACTION_TYPE.ADD, payload: [value] });
           setNewTask({ ...initialState, id: +new Date() });

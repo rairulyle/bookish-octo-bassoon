@@ -3,13 +3,12 @@ import { useState } from 'react';
 
 interface Props {
   value: TodoItem;
-  tabIndex?: number;
   onChange?: (task: TodoItem) => void;
   onAdd?: (task: TodoItem) => void;
   onDelete?: (task: TodoItem) => void;
 }
 
-function Item({ value, tabIndex, onChange, onAdd, onDelete }: Props) {
+function Item({ value, onChange, onAdd, onDelete }: Props) {
   const [isEditing, setIsEditing] = useState(false); // when user is adding new item
   const [isActive, setIsActive] = useState(false); // for item hover and focus
 
@@ -23,6 +22,11 @@ function Item({ value, tabIndex, onChange, onAdd, onDelete }: Props) {
         {!onAdd && (
           <input
             tabIndex={-1}
+            aria-label={
+              value.completed
+                ? `Mark ${value.task} as uncompleted`
+                : `Mark ${value.task} as completed`
+            }
             type="checkbox"
             checked={value.completed}
             onChange={(e) =>
@@ -31,7 +35,6 @@ function Item({ value, tabIndex, onChange, onAdd, onDelete }: Props) {
           />
         )}
         <input
-          tabIndex={tabIndex}
           placeholder="Take a note..."
           type="text"
           className={`p-2 rounded-md focus:outline-none bg-transparent w-full ${

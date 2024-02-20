@@ -22,7 +22,6 @@ function List({ todoList, dispatch }: Props) {
               <li key={item.id}>
                 <Item
                   value={item}
-                  tabIndex={i + 1}
                   onChange={(value) =>
                     dispatch({
                       type: TODO_ACTION_TYPE.UPDATE,

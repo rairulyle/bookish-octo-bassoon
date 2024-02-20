@@ -21,7 +21,7 @@ const Layout = ({ children, complementary }: LayoutProps) => {
         </div>
         <div className="card text-left">{children}</div>
       </main>
-      <aside className="mt-3 text-xs opacity-50">{complementary}</aside>
+      <aside className="mt-3 text-xs opacity-80">{complementary}</aside>
     </div>
   );
 };
