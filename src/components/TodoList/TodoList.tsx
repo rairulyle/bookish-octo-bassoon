@@ -12,29 +12,13 @@ const initialState: TodoItem = {
 };
 
 const TodoList = () => {
-  const [firstRender, setFirstRender] = useState(true);
-  const [todoList, dispatch] = useReducer(todoReducer, []);
+  const storedList = JSON.parse(localStorage.getItem('todo-list') || '[]') as TodoItem[];
+  const [todoList, dispatch] = useReducer(todoReducer, storedList);
   const [newTask, setNewTask] = useState<TodoItem>(initialState);
 
-  // Load from local storage
   useEffect(() => {
-    const localTodoList = localStorage.getItem('todo-list');
-    if (localTodoList) {
-      dispatch({
-        type: TODO_ACTION_TYPE.LOAD,
-        payload: JSON.parse(localTodoList),
-      });
-    }
-  }, []);
-
-  // Save to local storage
-  useEffect(() => {
-    if (!firstRender) {
-      localStorage.setItem('todo-list', JSON.stringify(todoList));
-    } else {
-      setFirstRender(false);
-    }
-  }, [todoList, firstRender]);
+    localStorage.setItem('todo-list', JSON.stringify(todoList));
+  }, [todoList]);
 
   return (
     <div className="p-4 border dark:border-white dark:border-opacity-50 rounded-md">
