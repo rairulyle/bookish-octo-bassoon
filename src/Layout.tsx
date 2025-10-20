@@ -3,10 +3,9 @@ import sesimi from '/sesimi.svg'
 
 type LayoutProps = {
   children: ReactNode
-  complementary: ReactNode
 }
 
-const Layout = ({ children, complementary }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
     <div className={`grid items-center`}>
       <main>
@@ -21,8 +20,6 @@ const Layout = ({ children, complementary }: LayoutProps) => {
         <h1>todo…</h1>
         <div className="card">{children}</div>
       </main>
-
-      <aside>{complementary}</aside>
     </div>
   )
 }

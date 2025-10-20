@@ -1,31 +1,28 @@
-import { useEffect, useState } from 'react'
+type TodoListProps = {
+  items: string[]
+  onAddItem: (item: string) => void
+}
 
-const TodoList = () => {
-  const [items, setItems] = useState(['Buy milk', 'Buy bread'])
-
-  // pretend this is a side effect that adds a new task on mount
-  useEffect(() => {
-    setItems(['Some other task'])
-  })
-
-  // make this work first…
-  const handleClick = () => {
-    items.push('Brush teeth')
-    setItems(items)
+const TodoList = ({ items, onAddItem }: TodoListProps) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const task = formData.get('task')
+    if (task && typeof task === 'string') {
+      onAddItem(task)
+    }
   }
 
-  // …then allow custom tasks to be added via an input field
-  // instead of hardcoding the task in the handleClick function
-
   return (
-    <div>
-      <a onClick={handleClick}>Add Task</a>
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Add Task</button>
+      <input type="text" name="task" required placeholder="New task" />
       <ul>
-        {items.map((item) => (
-          <li>{item}</li>
+        {items.map((item, i) => (
+          <li key={`${item}-${i}`}>{item}</li>
         ))}
       </ul>
-    </div>
+    </form>
   )
 }
 
